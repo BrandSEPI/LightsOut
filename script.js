@@ -2,10 +2,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const scoreDiv = document.querySelector(".score");
     const allCase = document.querySelectorAll(".case");
     let score = 0
-    let matrice = [1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 1]
+    console.log(Math.round(Math.random() * (4 - 0)));
+
+
+
     class Case {
-        constructor(xCor, yCor) {
-            this.state = Math.random() < 0.5;
+        constructor(xCor, yCor, statement) {
+            this.state = statement;
             this.coord = {
                 x: xCor,
                 y: yCor
@@ -19,6 +22,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let getKeyByCoord = (x, y) => {
         return x + y * 5
+    }
+
+    let clickCase = (arrayGame, xCase, yCase) => {
+        let key = getKeyByCoord(xCase, yCase)
+        arrayGame[key].state = !arrayGame[key].state;
+        if (xCase + 1 < 5) {
+            key = getKeyByCoord(xCase + 1, yCase)
+            arrayGame[key].state = !arrayGame[key].state;
+        }
+        if (xCase - 1 > -1) {
+            key = getKeyByCoord(xCase - 1, yCase)
+            arrayGame[key].state = !arrayGame[key].state;
+        }
+        if (yCase + 1 < 5) {
+            key = getKeyByCoord(xCase, yCase + 1)
+            arrayGame[key].state = !arrayGame[key].state;
+        }
+        if (yCase - 1 > -1) {
+            key = getKeyByCoord(xCase, yCase - 1)
+            arrayGame[key].state = !arrayGame[key].state;
+        }
+        // console.log(arrayGame);
+        return arrayGame
+    }
+
+    let matriceCreation = () => {
+        let matrice = [{ state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }]
+        for (let index = 0; index < 10; index++) {
+            let x = Math.round(Math.random() * (4 - 0))
+            let y = Math.round(Math.random() * (4 - 0))
+            console.log(x, y);
+            matrice = clickCase(matrice, x, y)
+                // console.log(matrice);
+
+        }
+        return matrice
     }
 
     let refresh = () => {
@@ -39,41 +78,28 @@ document.addEventListener("DOMContentLoaded", () => {
     let array = []
     let x = 0
     let y = 0
+    let matrice = matriceCreation()
     for (let index = 0; index < 25; index++) {
         if (x >= 5) {
             x = 0
             y++
         }
-        array.push(new Case(x, y))
+        array.push(new Case(x, y, matrice[index].state ? true : false))
         x++
 
 
     }
+
+
+    refresh()
+    console.log(matrice);
     scoreDiv.innerHTML = score;
 
     allCase.forEach(box => {
         box.addEventListener('click', (e) => {
             let xBox = parseInt(e.target.classList[3].slice(1));
             let yBox = parseInt(e.currentTarget.parentNode.classList[1].slice(1));
-            let key = getKeyByCoord(xBox, yBox)
-                // console.log(yBox);
-            array[key].state = !array[key].state;
-            if (xBox + 1 < 5) {
-                key = getKeyByCoord(xBox + 1, yBox)
-                array[key].state = !array[key].state;
-            }
-            if (xBox - 1 > -1) {
-                key = getKeyByCoord(xBox - 1, yBox)
-                array[key].state = !array[key].state;
-            }
-            if (yBox + 1 < 5) {
-                key = getKeyByCoord(xBox, yBox + 1)
-                array[key].state = !array[key].state;
-            }
-            if (yBox - 1 > -1) {
-                key = getKeyByCoord(xBox, yBox - 1)
-                array[key].state = !array[key].state;
-            }
+            array = clickCase(array, xBox, yBox)
 
             // array.forEach(element => {
             //     console.log(element.getCoord().x);
@@ -85,7 +111,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-        refresh()
     });
 
 
