@@ -1,0 +1,9 @@
+.col {
+    background-color: blue;
+    height: 10vh;
+    margin: 0 1vw;
+}
+
+.score {
+    font-size: 500%;
+}
