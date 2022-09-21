@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const scoreDiv = document.querySelector(".score");
     const allCase = document.querySelectorAll(".case");
     let score = 0
-    console.log(Math.round(Math.random() * (4 - 0)));
 
 
 
@@ -49,10 +48,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let matriceCreation = () => {
         let matrice = [{ state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }, { state: true }]
-        for (let index = 0; index < 10; index++) {
+        for (let index = 0; index < Math.round(Math.random() * 100); index++) {
             let x = Math.round(Math.random() * (4 - 0))
             let y = Math.round(Math.random() * (4 - 0))
-            console.log(x, y);
             matrice = clickCase(matrice, x, y)
                 // console.log(matrice);
 
@@ -62,11 +60,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let refresh = () => {
         let count = 0
+        let result = false
         array.forEach(element => {
 
             // console.log(element.state);
             if (element.state) {
                 allCase[count].classList.add("light")
+
             } else {
                 allCase[count].classList.remove("light")
             }
@@ -92,7 +92,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     refresh()
-    console.log(matrice);
     scoreDiv.innerHTML = score;
 
     allCase.forEach(box => {
@@ -100,10 +99,6 @@ document.addEventListener("DOMContentLoaded", () => {
             let xBox = parseInt(e.target.classList[3].slice(1));
             let yBox = parseInt(e.currentTarget.parentNode.classList[1].slice(1));
             array = clickCase(array, xBox, yBox)
-
-            // array.forEach(element => {
-            //     console.log(element.getCoord().x);
-            // })
             refresh();
             score++
             scoreDiv.innerHTML = score;

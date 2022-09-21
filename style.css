@@ -1,7 +1,9 @@
-.col {
-    background-color: rgba(0, 0, 0, 0.61);
+.case {
+    background-color: rgba(116, 108, 44, 0.781);
     height: 10vh;
     margin: 0 1vw;
+    border: solid 1px black;
+    border-radius: 10px;
 }
 
 .score {
@@ -11,6 +13,8 @@
 .light {
     background-color: rgba(228, 214, 25, 0.781);
 }
+
+.case {}
 
 .case:hover {
     background-color: rgba(56, 50, 50, 0.432);
