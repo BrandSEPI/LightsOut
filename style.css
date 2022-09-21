@@ -1,9 +1,17 @@
 .col {
-    background-color: blue;
+    background-color: rgba(0, 0, 0, 0.61);
     height: 10vh;
     margin: 0 1vw;
 }
 
 .score {
     font-size: 500%;
+}
+
+.light {
+    background-color: rgba(228, 214, 25, 0.781);
+}
+
+.case:hover {
+    background-color: rgba(56, 50, 50, 0.432);
 }
